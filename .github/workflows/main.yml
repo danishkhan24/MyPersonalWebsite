@@ -36,5 +36,5 @@ jobs:
         ssh -o StrictHostKeyChecking=no -i private_key.pem $EC2_USER@$EC2_HOST "pm2 stop all"
         rsync -avz -e "ssh -i private_key.pem -o StrictHostKeyChecking=no" ./* $EC2_USER@$EC2_HOST:$EC2_PATH
         ssh -o StrictHostKeyChecking=no -i private_key.pem $EC2_USER@$EC2_HOST "cd $EC2_PATH && npm install"
-        # ssh -o StrictHostKeyChecking=no -i private_key.pem $EC2_USER@$EC2_HOST "pm2 deploy ecosystem.config.js --env production && pm2 reload ecosystem.config.js --env production"
+        # ssh -o StrictHostKeyChecking=no -i private_key.pem $EC2_USER@$EC2_HOST "pm2 deploy ecosystem.config.js && pm2 reload ecosystem.config.js"
       shell: bash
