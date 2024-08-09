@@ -32,7 +32,7 @@ jobs:
         echo "${SSH_PRIVATE_KEY}" | tr -d '\r' > private_key.pem
         chmod 600 private_key.pem
 
-        # Verify the private key file (for debugging purposes)
+        # Verify the private key file (debugging purpose)
         echo "Private key contents:"
         cat private_key.pem
 
