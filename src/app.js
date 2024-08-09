@@ -9,6 +9,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 // Set view engine (if using templates like EJS or Pug)
 app.set('view engine', 'ejs'); // or 'pug'
 
+// Set the views directory
+app.set('views', path.join(__dirname, 'views'));
+
 // Routes
 app.get('/', (req, res) => {
   res.render('index'); // Render the home page
