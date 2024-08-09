@@ -1,4 +1,4 @@
-name: CI/CD Pipeline
+name: Deploy Node.js App
 
 on:
   push:
@@ -32,13 +32,9 @@ jobs:
         echo "${SSH_PRIVATE_KEY}" | tr -d '\r' > private_key.pem
         chmod 600 private_key.pem
 
-        # Verify the private key file (debugging purpose)
-        echo "Private key contents:"
-        cat private_key.pem
-
         # Use the private key to SSH into the server
         ssh -o StrictHostKeyChecking=no -i private_key.pem $EC2_USER@$EC2_HOST "pm2 stop all"
-        scp -o StrictHostKeyChecking=no -i private_key.pem -r ./* $EC2_USER@$EC2_HOST:$EC2_PATH
+        rsync -avz -e "ssh -i private_key.pem -o StrictHostKeyChecking=no" --exclude='node_modules' ./* $EC2_USER@$EC2_HOST:$EC2_PATH
         ssh -o StrictHostKeyChecking=no -i private_key.pem $EC2_USER@$EC2_HOST "cd $EC2_PATH && npm install"
         ssh -o StrictHostKeyChecking=no -i private_key.pem $EC2_USER@$EC2_HOST "pm2 restart all"
       shell: bash
