@@ -35,6 +35,6 @@ jobs:
         # Use the private key to SSH into the server
         ssh -o StrictHostKeyChecking=no -i private_key.pem $EC2_USER@$EC2_HOST "pm2 stop all"
         rsync -avz -e "ssh -i private_key.pem -o StrictHostKeyChecking=no" ./* $EC2_USER@$EC2_HOST:$EC2_PATH
-        ssh -o StrictHostKeyChecking=no -i private_key.pem $EC2_USER@$EC2_HOST "cd $EC2_PATH && npm install"
-        ssh -o StrictHostKeyChecking=no -i private_key.pem $EC2_USER@$EC2_HOST "pm2 restart ecosystem.config.js"
+        ssh -o StrictHostKeyChecking=no -i private_key.pem $EC2_USER@$EC2_HOST "cd $EC2_PATH && npm install && pm2 restart ecosystem.config.js"
+        # ssh -o StrictHostKeyChecking=no -i private_key.pem $EC2_USER@$EC2_HOST "pm2 restart ecosystem.config.js"
       shell: bash
